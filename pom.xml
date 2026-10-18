@@ -1,0 +1,114 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--
+        PARENT:
+        Indicamos que este proyecto utiliza Spring Boot como proyecto padre.
+
+        ¿Para qué sirve?
+        - Gestiona versiones compatibles de muchas dependencias de Spring.
+        - Evita tener que indicar manualmente la versión de cada librería.
+        - Aporta configuraciones Maven ya preparadas para proyectos Spring Boot.
+
+        Gracias a este parent podemos añadir dependencias como
+        spring-boot-starter-web o spring-kafka sin poner su versión.
+    -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.5.4</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>com.notificacion</groupId>
+    <artifactId>notificacion-service</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <name>notificacion-service</name>
+    <description>Microservicio consumidor de eventos Kafka</description>
+
+    <!--
+        PROPERTIES:
+        Aquí definimos propiedades generales del proyecto.
+
+        java.version = 17
+        indica que queremos compilar y ejecutar el proyecto utilizando Java 17.
+
+        Spring Boot y Maven utilizarán esta propiedad durante la compilación.
+    -->
+    <properties>
+  <!-- Version de Java utilizada para compilar el proyecto. -->
+    <java.version>17</java.version>
+
+    <!-- Codificacion utilizada por Maven para leer y procesar
+         los ficheros del proyecto y los recursos. -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <!-- Codificacion utilizada para informes Maven. -->
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    <dependencies>
+
+        <!--
+            Spring Web:
+            Añade lo necesario para trabajar con HTTP y crear endpoints REST.
+
+            En este microservicio nos servirá, por ejemplo,
+            si queremos crear un endpoint GET /eventos
+            para consultar los mensajes recibidos desde Kafka.
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!--
+            Spring Kafka:
+            Añade las clases necesarias para integrar Spring Boot con Kafka.
+
+            Nos permitirá utilizar, entre otras cosas:
+            - @KafkaListener para consumir mensajes.
+            - KafkaTemplate para publicar mensajes.
+            - configuración de Producer y Consumer.
+        -->
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <!--
+        BUILD:
+        Define cómo Maven construye y empaqueta la aplicación.
+
+        Aquí añadimos el plugin de Spring Boot.
+    -->
+    <build>
+        <plugins>
+
+            <!--
+                SPRING BOOT MAVEN PLUGIN:
+
+                Se utiliza durante el build para empaquetar la aplicación
+                como un JAR ejecutable de Spring Boot.
+
+                Gracias a este plugin podremos generar un JAR que se ejecute con:
+
+                java -jar notificacion-service-0.0.1-SNAPSHOT.jar
+
+                También incluye dentro del artefacto lo necesario
+                para arrancar la aplicación Spring Boot correctamente.
+            -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+        </plugins>
+    </build>
+
+</project>
