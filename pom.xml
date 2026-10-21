@@ -24,7 +24,9 @@
 
     <groupId>com.notificacion</groupId>
     <artifactId>notificacion-service</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version> 
+      <!-- Sin <packaging> → Maven usa jar por defecto. -->
+    <packaging>jar</packaging>
 
     <name>notificacion-service</name>
     <description>Microservicio consumidor de eventos Kafka</description>
@@ -39,15 +41,14 @@
         Spring Boot y Maven utilizarán esta propiedad durante la compilación.
     -->
     <properties>
-  <!-- Version de Java utilizada para compilar el proyecto. -->
-    <java.version>17</java.version>
-
-    <!-- Codificacion utilizada por Maven para leer y procesar
-         los ficheros del proyecto y los recursos. -->
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-    <!-- Codificacion utilizada para informes Maven. -->
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		  <!-- Version de Java utilizada para compilar el proyecto. -->
+		    <java.version>17</java.version>
+		
+		    <!-- Codificacion utilizada por Maven para leer y procesar los ficheros del proyecto y los recursos. -->
+		    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		
+		    <!-- Codificacion utilizada para informes Maven. -->
+		    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <dependencies>
@@ -83,9 +84,8 @@
 
     <!--
         BUILD:
-        Define cómo Maven construye y empaqueta la aplicación.
-
-        Aquí añadimos el plugin de Spring Boot.
+        Define cómo Maven construye y empaqueta la aplicación. Aquí añadimos el plugin de Spring Boot.
+        el spring-boot-maven-plugin hace que el JAR creado, quede preparado como JAR ejecutable de Spring Boot:
     -->
     <build>
         <plugins>

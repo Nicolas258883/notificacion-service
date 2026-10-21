@@ -9,8 +9,7 @@ import com.notificacion.service.store.EventoStore;
 @Service
 public class CarroKafkaConsumer {
 
-    // Almacén temporal en memoria donde guardaremos
-    // los eventos recibidos desde Kafka.
+    // Almacén temporal en memoria donde guardaremos los eventos recibidos desde Kafka.
     private final EventoStore eventoStore;
 
     // Spring inyecta EventoStore mediante el constructor.
@@ -19,8 +18,8 @@ public class CarroKafkaConsumer {
     }
 
     // Este método escucha el topic "carro-creado".
-    // Cada vez que llega un mensaje, Spring lo convierte
-    // a CarroCreadoEvento y ejecuta este método.
+    // Cada vez que llega un mensaje, Spring lo convierte a un Evento carro-creado y ejecuta este método recibirCarroCreado.
+    //  @KafkaListener=> Cuando llegue un mensaje de este topic, conviértelo a CarroCreadoEvento y llama a este método pasándole ese objeto.
     @KafkaListener(
         topics = "carro-creado",
         groupId = "notificaciones-group"
@@ -28,12 +27,7 @@ public class CarroKafkaConsumer {
     public void recibirCarroCreado(CarroCreadoEvento evento) {
 
         // Mostramos por consola el evento recibido.
-        System.out.println(
-            "Mensaje recibido: "
-            + evento.getMarca()
-            + " "
-            + evento.getModelo()
-        );
+        System.out.println( "Mensaje recibido: " + evento.getMarca() + " " + evento.getModelo());
 
         // Guardamos el evento en memoria.
         eventoStore.guardar(evento);

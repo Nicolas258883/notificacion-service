@@ -14,7 +14,12 @@ public class EventoStore {
     private final List<CarroCreadoEvento> eventos =
             new CopyOnWriteArrayList<>();
 
-    // Guarda un evento recibido.
+ // Guarda temporalmente en memoria los eventos recibidos desde Kafka.
+ // Lo utilizamos solo para el laboratorio, para poder consultar después
+ // qué mensajes ha consumido notificacion-service mediante GET /eventos.
+ // En un proyecto real, aquí podríamos guardar la información en BD,
+ // enviar un correo, actualizar otro sistema, etc.
+ // Al estar en memoria, estos datos se pierden al reiniciar la aplicación
     public void guardar(CarroCreadoEvento evento) {
         eventos.add(evento);
     }
